@@ -1,51 +1,60 @@
-package com.example.myapp;
+package com.example.bolitas;
 
-import android.graphics.Color;
+
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.view.View.OnClickListener;
+import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
+public class MainActivity extends Activity implements OnClickListener {
+    Button b1, b2, b3;
+    public void onCreate(Bundle si){
+        super.onCreate(si);
 
-public class MainActivity extends AppCompatActivity {
+        LinearLayout ll = new LinearLayout(this);
+        ll.setOrientation(LinearLayout.VERTICAL);
 
-    private DrawView drawView;
+        TextView titulo = new TextView(this);
+        titulo.setText("Bolitas");
+        titulo.setTextSize(40);
+        ll.addView(titulo);
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        b1 = new Button(this);
+        b1.setText("Bolita JAVA");
+        b1.setOnClickListener(this);
 
-        Spinner colorSpinner = findViewById(R.id.colorSpinner);
-        drawView = findViewById(R.id.drawView);
+        b2 = new Button(this);
+        b2.setText("Bolita Imagen");
+        b2.setOnClickListener(this);
 
-        String[] colors = {"Rojo", "Verde", "Azul"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, colors);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        colorSpinner.setAdapter(adapter);
+        b3 = new Button(this);
+        b3.setText("Bolita Imagen Animada");
+        b3.setOnClickListener(this);
 
-        colorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0:
-                        drawView.setPaintColor(Color.RED);
-                        break;
-                    case 1:
-                        drawView.setPaintColor(Color.GREEN);
-                        break;
-                    case 2:
-                        drawView.setPaintColor(Color.BLUE);
-                        break;
-                }
-            }
+        ll.addView(b1);
+        ll.addView(b2);
+        ll.addView(b3);
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
+        setContentView(ll);
     }
+
+    public void onClick(View v){
+        if(v.equals(b1)){
+            Intent i1 = new Intent(this, BolitaJava.class);
+            startActivity(i1);
+        }
+        if(v.equals(b2)){
+            Intent i1 = new Intent(this, BolitaImagen.class);
+            startActivity(i1);
+        }
+        if(v.equals(b3)){
+            Intent i1 = new Intent(this, BolitaImagenAnimada.class);
+            startActivity(i1);
+        }
+    }
+
 }
